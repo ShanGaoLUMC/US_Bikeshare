@@ -238,11 +238,25 @@ def main():
         trip_duration_stats(df, filter)
         user_stats(df, city, filter)
 
+        line = 0
+        view_more = True
         view_individual = input('\nWould you like to view individual travel data?\n')
         if view_individual.lower() == 'yes':
-            for i in range(len(df)):
-                print(df.iloc[i])
-                print('-'*40)
+            while view_more == True:
+                if line+5 > len(df):
+                    lastIdx = len(df)
+                else:
+                    lastIdx = line + 5
+
+                for i in range(line, lastIdx):
+                    print('\n{')
+                    print(df.iloc[i])
+                    print('}')
+                    line += 5
+
+                continue_flag = input('\nWould you like to view more data?\n')
+                if continue_flag.lower() == 'no':
+                    view_more = False
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
